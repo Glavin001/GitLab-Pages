@@ -1,0 +1,35 @@
+{
+    "name": "GitLab-Pages",
+    "version": "0.1.0",
+    "description": "GitHub Pages, for GitLab. ",
+    "main": "index.js",
+    "private": true,
+    "scripts": {
+        "start": "node ./bin/www",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Glavin001/GitLab-Pages.git"
+    },
+    "keywords": [
+        "gitlab",
+        "pages"
+    ],
+    "author": "Glavin Wiechert",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Glavin001/GitLab-Pages/issues"
+    },
+    "homepage": "https://github.com/Glavin001/GitLab-Pages",
+    "dependencies": {
+        "express": "^4.11.1",
+        "body-parser": "~1.10.2",
+        "cookie-parser": "~1.3.3",
+        "debug": "~2.1.1",
+        "express": "~4.11.1",
+        "jade": "~1.9.1",
+        "morgan": "~1.5.1",
+        "serve-favicon": "~2.2.0"
+    }
+}
