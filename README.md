@@ -5,6 +5,8 @@ GitLab Pages
 
 -----
 
+![gitlab-pages](https://cloud.githubusercontent.com/assets/1885333/5892805/9ac6f59e-a4a2-11e4-8238-2c25584e1a60.gif)
+
 ## Installation
 
 ### Step 1) Create your deploy key pair
