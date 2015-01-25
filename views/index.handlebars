@@ -1,0 +1,15 @@
+<h1>{{title}}</h1>
+<p>Welcome {{user.username}}</p>
+
+<ul>
+    {{#each projects}}
+        <li>
+            <span>{{name}} ({{name_with_namespace}})</span>
+            {{#if pages_enabled}}
+                <a href="/users/{{namespace.id}}/project/{{id}}/disable" type="button" class="btn btn-danger">Disable</a>
+            {{else}}
+                <a href="/users/{{namespace.id}}/project/{{id}}/enable" type="button" class="btn btn-primary">Enable</a>
+            {{/if}}
+        </li>
+    {{/each}}
+</ul>

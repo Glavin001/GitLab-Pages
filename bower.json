@@ -1,0 +1,19 @@
+{
+  "name": "GitLab-Pages",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Glavin001/GitLab-Pages",
+  "authors": [
+    "Glavin Wiechert <glavin.wiechert@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.2"
+  }
+}
