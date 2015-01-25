@@ -27,24 +27,4 @@ router.get('/', function(req, res, next) {
 //     });
 // });
 
-router.get('/:user_id/project/:project_id/enable', function(req, res, next) {
-    // console.log(req.params, req.query);
-    var projectId = parseInt(req.params.project_id);
-    req.session.enabledProjects = req.session.enabledProjects || [];
-    req.session.enabledProjects.push(projectId);
-    res.redirect('/');
-});
-
-router.get('/:user_id/project/:project_id/disable', function(req, res, next) {
-    var projectId = parseInt(req.params.project_id);
-    req.session.enabledProjects = req.session.enabledProjects || [];
-    var enabledProjects = req.session.enabledProjects;
-    var index = enabledProjects.indexOf(projectId);
-    if (index !== -1) {
-        enabledProjects.splice(index, 1);
-    }
-    res.redirect('/');
-});
-
-
 module.exports = router;

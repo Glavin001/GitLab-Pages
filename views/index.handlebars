@@ -1,15 +1,21 @@
-<h1>{{title}}</h1>
-<p>Welcome {{user.username}}</p>
+<div class="jumbotron">
+    <h1>{{title}}</h1>
+    <p>Welcome {{user.username}}</p>
+    <p><a class="btn btn-primary btn-lg" href="https://github.com/Glavin001/GitLab-Pages" role="button" target="_blank">Learn more</a></p>
+</div>
 
-<ul>
+<div class="list-group">
     {{#each projects}}
-        <li>
-            <span>{{name}} ({{name_with_namespace}})</span>
+        <div class="list-group-item">
             {{#if pages_enabled}}
-                <a href="/users/{{namespace.id}}/project/{{id}}/disable" type="button" class="btn btn-danger">Disable</a>
+                <a href="/projects/{{id}}/disable" type="button" class="btn btn-danger pull-right">Disable</a>
             {{else}}
-                <a href="/users/{{namespace.id}}/project/{{id}}/enable" type="button" class="btn btn-primary">Enable</a>
+                <a href="/projects/{{id}}/enable" type="button" class="btn btn-primary pull-right">Enable</a>
             {{/if}}
-        </li>
+            <h4 class="list-group-item-heading">
+                <a href="/pages/{{path_with_namespace}}" target="_blank">{{name}} ({{name_with_namespace}})</a>
+            </h4>
+            <p class="list-group-item-text">{{description}}</p>
+        </div>
     {{/each}}
-</ul>
+</div>

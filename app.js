@@ -7,8 +7,11 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var projects = require('./routes/projects');
 var webhooks = require('./routes/webhooks');
 var exphbs  = require('express-handlebars');
+var serveIndex = require('serve-index');
+var config = require("./config");
 
 var app = express();
 
@@ -32,9 +35,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//
 app.use('/', routes);
 app.use('/users', users);
+app.use('/projects', projects);
 app.use('/webhooks', webhooks);
+
+// Pages
+app.use('/pages', express.static(config.server.publicPages));
+app.use('/pages/:namespace/:project/*', function(req, res, next) {
+    // Serve directory indexes for public/ftp folder (with icons)
+    var dir = path.join(__dirname, req.originalUrl);
+    var index = serveIndex(dir, {'icons': true})
+    index(req, res, next);
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

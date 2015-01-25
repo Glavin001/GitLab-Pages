@@ -1,9 +1,45 @@
 GitLab Pages
 ============
 
-GitHub Pages, for GitLab. 
+> GitHub Pages, for GitLab.
 
 -----
+
+## Installation
+
+### Step 1) Create your deploy key pair
+
+Create a SSH key pair for GitLab to use as deploy keys.
+
+```bash
+ssh-keygen -t rsa -C "example@email.com" -f "$(pwd)/keys/id_rsa"
+```
+
+They should be in path `keys/id_rsa` and `keys/id_rsa.pub`.
+
+### Step 2) Configure GitLab Pages server
+
+Clone this repo and install it's necessary dependencies:
+
+```bash
+# Already cloned repo
+npm install
+bower install
+```
+
+Edit `config.js`.
+
+### Step 3) Start your GitLab Pages server
+
+And start the server!
+
+```bash
+npm start
+```
+
+### Profit!
+
+Login using your GitLab User Token at [http://localhost:1337](http://localhost:1337).
 
 ## How It Works
 
