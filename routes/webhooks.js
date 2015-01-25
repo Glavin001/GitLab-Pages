@@ -7,6 +7,7 @@ var fs = require('fs');
 var _ = require('lodash');
 var rmdir = require('rimraf');
 var mv = require('mv');
+var exec = require('child_process').exec;
 
 /* POST  */
 router.post('/pages.json', function(req, res, next) {
@@ -60,12 +61,18 @@ router.post('/pages.json', function(req, res, next) {
                 var finalRepoPath = path.resolve(config.deploy.publicPagesDir, projectNamespace, projectName);
                 // Delete workingDir
                 rmdir(finalRepoPath, function() {
-                    mv(repoPath, finalRepoPath, {
-                        mkdirp: true,
-                        clobber: true
-                    }, function(err) {
+                    // jekyll build --safe --source .tmp/Glavin001/gitlab-pages-example/ --destination pages/Glavin001/gitlab-pages-example
+                    var cmd = "jekyll build --safe --source \""+repoPath+"\" --destination \""+finalRepoPath+"\"";
+                    exec(cmd, function (error, stdout, stderr) {
+                        // output is in stdout
                         console.log('Done deploying '+projectNamespace+'/'+projectName);
                     });
+                    // mv(repoPath, finalRepoPath, {
+                    //     mkdirp: true,
+                    //     clobber: true
+                    // }, function(err) {
+                    //     console.log('Done deploying '+projectNamespace+'/'+projectName);
+                    // });
                 });
             });
         }
