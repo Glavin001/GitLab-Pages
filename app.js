@@ -42,10 +42,10 @@ app.use('/projects', projects);
 app.use('/webhooks', webhooks);
 
 // Pages
-app.use('/pages', express.static(config.server.publicPages));
+app.use('/pages', express.static(config.deploy.publicPagesDir));
 app.use('/pages/:namespace/:project/*', function(req, res, next) {
     // Serve directory indexes for public/ftp folder (with icons)
-    var dir = path.join(__dirname, req.originalUrl);
+    var dir = path.join(config.deploy.publicPagesDir, req.originalUrl);
     var index = serveIndex(dir, {'icons': true})
     index(req, res, next);
 });

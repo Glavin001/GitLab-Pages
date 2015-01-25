@@ -27,7 +27,13 @@ npm install
 bower install
 ```
 
-Edit `config.js`.
+Copy default config to custom config file.
+
+```bash
+cp default_config.js _config.js
+```
+
+Edit your new [_config.js](default_config.js) file for your setup.
 
 ### Step 3) Start your GitLab Pages server
 

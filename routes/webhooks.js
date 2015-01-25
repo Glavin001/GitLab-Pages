@@ -6,6 +6,7 @@ var path = require("path");
 var fs = require('fs');
 var _ = require('lodash');
 var rmdir = require('rimraf');
+var mv = require('mv');
 
 /* POST  */
 router.post('/pages.json', function(req, res, next) {
@@ -17,7 +18,13 @@ router.post('/pages.json', function(req, res, next) {
     var afterCommit = payload.after;
     var ref = payload.ref;
 
-    var url = "git@gitlab.cs.smu.ca:Glavin001/raytracer.git";
+    // Check if this is the deploy branch
+    var deployRef = "refs/heads/"+config.deploy.deployBranch;
+    if (ref !== deployRef) {
+        // console.log(ref, deployRef);
+        return res.end();
+    }
+
     var opts = {
         ignoreCertErrors: 1,
         remoteCallbacks: {
@@ -33,12 +40,13 @@ router.post('/pages.json', function(req, res, next) {
     var repository = payload.repository;
     var url = repository.url;
     var t = url.split(':')[1].split('/');
-    var projectNamespace = t[0]; //"Glavin001";
-    var projectName = t[1].split('.')[0]; //"Raytracer";
+    var projectNamespace = t[0];
+    var projectName = t[1].split('.')[0];
     // console.log(config);
-    var repoPath = path.resolve(config.server.publicPages, projectNamespace, projectName);
-    console.log(repoPath);
-    console.log(url);
+    var workingDir = config.deploy.tmpPagesDir || config.deploy.publicPagesDir;
+    var repoPath = path.resolve(workingDir, projectNamespace, projectName);
+    // console.log(repoPath);
+    // console.log(url);
 
     fs.exists(repoPath, function(exists) {
 
@@ -48,7 +56,17 @@ router.post('/pages.json', function(req, res, next) {
                 return repo.getCommit(afterCommit);
             })
             .done(function() {
-                
+                // Move from workingDir to pages dir
+                var finalRepoPath = path.resolve(config.deploy.publicPagesDir, projectNamespace, projectName);
+                // Delete workingDir
+                rmdir(finalRepoPath, function() {
+                    mv(repoPath, finalRepoPath, {
+                        mkdirp: true,
+                        clobber: true
+                    }, function(err) {
+                        console.log('Done deploying '+projectNamespace+'/'+projectName);
+                    });
+                });
             });
         }
 

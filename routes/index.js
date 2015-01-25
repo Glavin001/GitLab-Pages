@@ -42,10 +42,9 @@ router.get('/', function(req, res, next) {
                     }
                 });
 
-
             }, function(err, projects){
 
-                console.log(projects);
+                // console.log(projects);
                 // results is now an array of stats for each file
                 res.render('index', {
                     title: 'GitLab Pages',
@@ -54,8 +53,6 @@ router.get('/', function(req, res, next) {
                 });
 
             });
-
-
 
         });
     } else {
@@ -67,7 +64,7 @@ router.get('/', function(req, res, next) {
     }
 });
 
-/* GET home page. */
+/* POST login */
 router.post('/login', function(req, res, next) {
     // console.log(req.body);
     var token = req.body.token;
@@ -80,14 +77,20 @@ router.post('/login', function(req, res, next) {
     });
 
     gitlab.users.current(function(user) {
-        console.log(user);
+        // console.log(user);
         if (user) {
             req.session.user = user;
             req.session.token = token;
-            req.session.enabledProjects = [];
         }
         res.redirect('/');
     });
+});
+
+/* POST login */
+router.get('/logout', function(req, res, next) {
+    req.session.user = null;
+    req.session.token = null;
+    res.redirect('/');
 });
 
 module.exports = router;

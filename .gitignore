@@ -16,3 +16,5 @@ node_modules
 public/components/
 pages/*
 !pages/README.md
+.tmp
+_config.js
