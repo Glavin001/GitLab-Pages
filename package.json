@@ -32,6 +32,7 @@
     "express-session": "^1.10.1",
     "gitlab": "^1.2.0",
     "jade": "~1.9.1",
+    "lodash": "^2.4.1",
     "morgan": "~1.5.1",
     "mv": "^2.0.3",
     "nodegit": "^0.2.7",
