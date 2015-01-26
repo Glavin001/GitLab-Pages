@@ -45,7 +45,8 @@ app.use('/webhooks', webhooks);
 app.use('/pages', express.static(config.deploy.publicPagesDir));
 app.use('/pages/:namespace/:project/*', function(req, res, next) {
     // Serve directory indexes for public/ftp folder (with icons)
-    var dir = path.join(config.deploy.publicPagesDir, req.originalUrl);
+    var p = req.originalUrl.replace(/^\/pages\//, '');
+    var dir = path.join(config.deploy.publicPagesDir, p);
     var index = serveIndex(dir, {'icons': true})
     index(req, res, next);
 });
