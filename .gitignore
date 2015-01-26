@@ -18,3 +18,5 @@ pages/*
 !pages/README.md
 .tmp
 _config.js
+keys/*
+!keys/README.md
