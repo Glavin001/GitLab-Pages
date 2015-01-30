@@ -13,6 +13,10 @@ GitLab Pages
 
 ## Installation
 
+### Requirements
+
+It requires [Jekyll](http://jekyllrb.com/) to be installed. GitLab Pages will build Jekyll sites or simply copy content from non-jekyll sites to [`publicPagesDir`](https://github.com/Glavin001/GitLab-Pages/blob/master/default_config.js#L27).
+
 ### Step 1) Create your deploy key pair
 
 Create a SSH key pair for GitLab to use as deploy keys.
