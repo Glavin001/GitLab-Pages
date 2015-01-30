@@ -7,6 +7,10 @@ GitLab Pages
 
 ![gitlab-pages](https://cloud.githubusercontent.com/assets/1885333/5892805/9ac6f59e-a4a2-11e4-8238-2c25584e1a60.gif)
 
+## Author
+
+[Glavin Wiechert (Glavin001)](https://github.com/Glavin001) - [Twitter @GlavinW](https://twitter.com/GlavinW) - [LinkedIn](ca.linkedin.com/in/glavin/)
+
 ## Installation
 
 ### Step 1) Create your deploy key pair
