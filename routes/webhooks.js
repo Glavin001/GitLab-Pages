@@ -28,6 +28,7 @@ router.post('/pages.json', function(req, res, next) {
 
     var opts = {
         ignoreCertErrors: 1,
+        checkoutBranch: config.deploy.deployBranch,
         remoteCallbacks: {
             credentials: function(url, userName) {
                 return NodeGit.Cred.sshKeyNew(
