@@ -28,6 +28,7 @@ router.post('/pages.json', function(req, res, next) {
 
     var opts = {
         ignoreCertErrors: 1,
+        checkoutBranch: config.deploy.deployBranch, // remove this, once Checkout.tree() is implemented in nodegit
         remoteCallbacks: {
             credentials: function(url, userName) {
                 return NodeGit.Cred.sshKeyNew(
@@ -54,7 +55,8 @@ router.post('/pages.json', function(req, res, next) {
         function continueFn() {
             NodeGit.Clone.clone(url, repoPath, _.cloneDeep(opts))
             .then(function(repo) {
-                return repo.getCommit(afterCommit);
+                //return NodeGit.Checkout.tree(repo, afterCommit, null); // not yet implemented in nodegit
+                return NodeGit.Checkout.head(repo,null);
             })
             .done(function() {
                 // Move from workingDir to pages dir
