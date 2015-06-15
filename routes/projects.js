@@ -4,9 +4,10 @@ var GitLab = require('gitlab');
 var config = require('../config');
 var fs = require('fs');
 var _ = require('lodash');
+var debug = require('debug')('routes:projects');
 
 router.get('/:project_id/enable', function(req, res, next) {
-    // console.log(req.params, req.query);
+    // debug(req.params, req.query);
     var projectId = parseInt(req.params.project_id);
     var token = req.session.token;
     if (!token) {

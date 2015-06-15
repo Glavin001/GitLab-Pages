@@ -4,6 +4,7 @@ var GitLab = require('gitlab');
 var config = require('../config');
 var async = require('async');
 var _ = require('lodash');
+var debug = require('debug')('routes:index');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -44,7 +45,7 @@ router.get('/', function(req, res, next) {
 
             }, function(err, projects){
 
-                // console.log(projects);
+                // debug(projects);
                 // results is now an array of stats for each file
                 res.render('index', {
                     title: 'GitLab Pages',
@@ -66,7 +67,7 @@ router.get('/', function(req, res, next) {
 
 /* POST login */
 router.post('/login', function(req, res, next) {
-    // console.log(req.body);
+    // debug(req.body);
     var token = req.body.token;
     if (!token) {
         return res.redirect('/');
@@ -77,7 +78,7 @@ router.post('/login', function(req, res, next) {
     });
 
     gitlab.users.current(function(user) {
-        // console.log(user);
+        // debug(user);
         if (user) {
             req.session.user = user;
             req.session.token = token;

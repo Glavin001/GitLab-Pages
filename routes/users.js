@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var GitLab = require('gitlab');
+var debug = require('debug')('routes:users');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -15,7 +16,7 @@ router.get('/', function(req, res, next) {
 //
 // /* GET projects listing. */
 // router.get('/:token/projects/', function(req, res, next) {
-//     console.log(req.params);
+//     debug(req.params);
 //     var token = req.params.token;
 //     var gitlab = GitLab({
 //         url: config.gitlab.url,
