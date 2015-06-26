@@ -58,7 +58,12 @@ router.get('/', function(req, res, next) {
 
         });
     } else {
-        var pub_key = fs.readFileSync(config.deploy.sshPublicKey);
+        var pub_key = null;
+        try {
+            pub_key = fs.readFileSync(config.deploy.sshPublicKey);
+        } catch(err) {
+            pub_key = "Cannot find sshPublicKey " + config.deploy.sshPublicKey;
+        }
         res.render('login', {
             title: 'GitLab Pages',
             user: null,
