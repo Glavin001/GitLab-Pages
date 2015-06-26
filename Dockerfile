@@ -12,4 +12,4 @@ RUN	npm install -g bower && npm install && bower --allow-root install
 ENV PORT 5000
 EXPOSE 5000
 
-ENTRYPOINT ssh-keygen -q -t rsa -N '' -A -f /app/keys/id_rsa && npm start
+ENTRYPOINT /app/bin/docker_start.sh
