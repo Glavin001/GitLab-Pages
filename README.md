@@ -53,6 +53,16 @@ And start the server!
 npm start
 ```
 
+## Deploy with Docker
+
+Docker support is also available and the following env vars are used to configure the installation:
+  * GITLAB_URL - Url to your gitlab server
+  * DEPLOY_BRANCH - Specific branch that will be deployed when pushed
+  * DEPLOY_PAGEDIR - Public directory of GitLab Pages
+  * SERVER_URL - The public gitlab-pages server url
+
+The /app/keys directory SHOULD be mount using docker volumes, this will allow you to use leave the ssh key outside of the docker. If the rsa key doesn't exist the docker_start.sh script will generate it.
+
 ### Profit!
 
 Login using your GitLab User Token at [http://localhost:1337](http://localhost:1337).

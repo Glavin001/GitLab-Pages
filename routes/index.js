@@ -5,6 +5,7 @@ var config = require('../config');
 var async = require('async');
 var _ = require('lodash');
 var debug = require('debug')('routes:index');
+var fs = require('fs');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -57,10 +58,17 @@ router.get('/', function(req, res, next) {
 
         });
     } else {
+        var pub_key = null;
+        try {
+            pub_key = fs.readFileSync(config.deploy.sshPublicKey);
+        } catch(err) {
+            pub_key = "Cannot find sshPublicKey " + config.deploy.sshPublicKey;
+        }
         res.render('login', {
             title: 'GitLab Pages',
             user: null,
-            projects: []
+            projects: [],
+            pubkey: pub_key
         });
     }
 });
