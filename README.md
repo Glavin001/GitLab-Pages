@@ -81,5 +81,5 @@ Login using your GitLab User Token at [http://localhost:1337](http://localhost:1
 - [Node.js](http://nodejs.org/)
 - [Express](http://expressjs.com/)
 - [NodeGit](https://github.com/nodegit/nodegit)
-- [Node-GitLab](https://github.com/moul/node-gitlab)
-- [GitLab-Webhook](https://npmjs.org/package/gitlab-webhook)
+- [Node-GitLab](https://github.com/node-gitlab/node-gitlab)
+- [GitLab-Webhook](https://www.npmjs.com/package/gitlab-webhook)
