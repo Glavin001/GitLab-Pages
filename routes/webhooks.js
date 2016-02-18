@@ -77,7 +77,9 @@ router.post('/pages.json', function(req, res, next) {
             // Clone if not already exists
             promise = NodeGit.Clone.clone(url, repoPath, _.cloneDeep(opts));
         }
-        promise.then(function(repo) {
+        promise.catch(function(error) { 
+            console.error(error);
+        }).then(function(repo) {
             debug('fetch all', repo, opts);
             return repo.fetchAll(opts.remoteCallbacks, opts.ignoreCertErrors)
             // Now that we're finished fetching, go ahead and merge our local branch
