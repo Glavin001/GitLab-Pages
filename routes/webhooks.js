@@ -56,6 +56,24 @@ router.post('/pages.json', function(req, res, next) {
             }
         }
     };
+    
+    var cloneOptions = {
+        checkoutBranch: config.deploy.deployBranch,
+        fetchOpts: {
+            callbacks: {
+                certificateCheck: function(){
+                    return 1;
+                },
+                credentials: function(url, userName){
+                    return NodeGit.Cred.sshKeyNew(
+                        userName,
+                        config.deploy.sshPublicKey,
+                        config.deploy.sshPrivateKey,
+                        "");
+                }
+            }
+        }
+    };
 
     var repository = payload.repository;
     var url = repository.url;
@@ -75,24 +93,34 @@ router.post('/pages.json', function(req, res, next) {
             promise = NodeGit.Repository.open(repoPath);
         } else {
             // Clone if not already exists
-            promise = NodeGit.Clone.clone(url, repoPath, _.cloneDeep(opts));
+            promise = NodeGit.Clone(url, repoPath, _.cloneDeep(cloneOptions));
         }
         promise.catch(function(error) { 
             console.error(error);
         }).then(function(repo) {
-            debug('fetch all', repo, opts);
-            return repo.fetchAll(opts.remoteCallbacks, opts.ignoreCertErrors)
+            debug('repo path', repo.path());
+            debug('fetch all', repo, cloneOptions);
+            return repo.fetchAll(cloneOptions.fetchOpts)
             // Now that we're finished fetching, go ahead and merge our local branch
             // with the new one
-            .then(function(fetches) {
+            .catch(function(error){
+                console.error(error);
+            })
+            .then(function(fetches){
                 debug('fetches', fetches);
                 return repo.mergeBranches(config.deploy.deployBranch, "origin/"+config.deploy.deployBranch);
+            })
+            .catch(function(error){
+                console.error(error);
             })
             .then(function(merges) {
                 debug('merges', merges);
                 debug('afterCommit', afterCommit);
                 debug('repo', repo);
                 return repo.getCommit(afterCommit);
+            })
+            .catch(function(error){
+                console.error(error);
             })
             .then(function(commit) {
                 debug('commit', commit);
