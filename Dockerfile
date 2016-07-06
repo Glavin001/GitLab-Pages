@@ -1,10 +1,11 @@
-FROM node:4.4.2
+FROM node:4.4.7-slim
 
 WORKDIR /app
 
 # nodegit is exteremily slow to compile so install it
 # before copy file in /app (prevent rebuild)
-RUN apt-get update && apt-get install -yyq zlib1g-dev openssh-client && npm install nodegit
+RUN apt-get update && apt-get install -yyq zlib1g-dev openssh-client
+RUN npm install nodegit@0.12
 RUN apt-get install ruby-full -yyq && gem install jekyll -N
 
 RUN npm install -g bower
